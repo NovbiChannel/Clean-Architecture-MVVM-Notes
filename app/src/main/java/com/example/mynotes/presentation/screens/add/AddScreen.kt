@@ -20,8 +20,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.mynotes.domain.model.Note
+import com.example.mynotes.presentation.navigation.Screens
 import com.example.mynotes.presentation.ui.theme.backgroundColor
 
 
@@ -30,7 +33,7 @@ import com.example.mynotes.presentation.ui.theme.backgroundColor
 fun AddScreen(
     navController: NavController
 ) {
-
+    val viewModel = hiltViewModel<AddViewModel>()
     var title by rememberSaveable { mutableStateOf("") }
     var description by rememberSaveable { mutableStateOf("") }
     Scaffold(
@@ -62,6 +65,16 @@ fun AddScreen(
                     modifier = Modifier
                         .width(48.dp)
                         .height(48.dp)
+                        .clickable {
+                            viewModel.addNote(
+                                Note(
+                                    title = title,
+                                    content = description
+                                )
+                            ) {
+                                navController.navigate(Screens.MainScreen.rout)
+                            }
+                        }
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.Add,
