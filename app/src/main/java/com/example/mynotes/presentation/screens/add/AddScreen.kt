@@ -1,0 +1,106 @@
+package com.example.mynotes.presentation.screens.add
+
+import android.annotation.SuppressLint
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.mynotes.presentation.ui.theme.MyNotesTheme
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.mynotes.presentation.ui.theme.backgroundColor
+
+
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@Composable
+fun AddScreen(
+    navController: NavController
+) {
+
+    var title by rememberSaveable { mutableStateOf("") }
+    var description by rememberSaveable { mutableStateOf("") }
+    Scaffold(
+        topBar = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .shadow(elevation = 15.dp)
+                    .background(Color.White)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(48.dp)
+                        .height(48.dp)
+                        .clickable { navController.popBackStack() }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "nav back",
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
+
+                Box(
+                    modifier = Modifier
+                        .width(48.dp)
+                        .height(48.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = "add note",
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
+            }
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            TextField(
+                value = title,
+                onValueChange = { title = it },
+                label = { Text(text = "Название")},
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+            TextField(
+                value = description,
+                onValueChange = { description = it },
+                label = { Text(text = "Текст")},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            )
+        }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun previewAddScreen() {
+    MyNotesTheme {
+        AddScreen(rememberNavController())
+    }
+}
