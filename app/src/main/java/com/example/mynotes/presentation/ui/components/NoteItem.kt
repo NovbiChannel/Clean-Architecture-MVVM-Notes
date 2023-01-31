@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mynotes.presentation.ui.theme.Black
@@ -21,10 +22,10 @@ fun NoteItem(title: String, content: String, modifier: Modifier) {
     Box(modifier = modifier) {
         Box(
             modifier = Modifier
+                .shadow(elevation = 10.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(15.dp))
-                .shadow(elevation = 10.dp)
-                .background(White)
+                .background(Color.White)
                 .padding(vertical = 20.dp)
         ) {
             Text(
