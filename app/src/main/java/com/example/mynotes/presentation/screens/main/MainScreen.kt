@@ -13,16 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.mynotes.presentation.navigation.Screens
 import com.example.mynotes.presentation.ui.components.NoteItem
-import com.example.mynotes.presentation.ui.theme.Black
-import com.example.mynotes.presentation.ui.theme.MyNotesTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -39,12 +35,12 @@ fun MainScreen(navController: NavHostController) {
                 .fillMaxWidth()
                 .height(56.dp)
                 .shadow(elevation = 15.dp)
-                .background(Color.White)
+                .background(MaterialTheme.colors.primary)
             ) {
                      Text(
                          text = "Мои заметки",
                          fontSize = 24.sp,
-                         color = Black,
+                         color = MaterialTheme.colors.primaryVariant,
                          modifier = Modifier
                              .padding(start = 8.dp)
                      )
@@ -59,7 +55,6 @@ fun MainScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
                 .padding(vertical = 4.dp)
         ) {
 
@@ -69,7 +64,8 @@ fun MainScreen(navController: NavHostController) {
                     content = note.content,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp)
+                        .shadow(elevation = 45.dp)
+                        .padding(vertical = 8.dp)
                         .padding(horizontal = 8.dp)
                         .clickable {
                             navController.navigate(Screens.DetailScreen.rout + "/${note.id}")
@@ -78,14 +74,5 @@ fun MainScreen(navController: NavHostController) {
             }
 
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewMainScreen() {
-    MyNotesTheme {
-        MainScreen(rememberNavController())
     }
 }
