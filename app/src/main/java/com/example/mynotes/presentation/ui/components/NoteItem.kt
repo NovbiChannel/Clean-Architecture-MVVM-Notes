@@ -19,6 +19,15 @@ import com.example.mynotes.presentation.ui.theme.White
 
 @Composable
 fun NoteItem(title: String, content: String, modifier: Modifier) {
+
+    val limit = 50
+    val formatContent: String
+    if (content.length > limit) {
+        formatContent = content.substring(0, limit) + "..."
+    } else {
+        formatContent = content
+    }
+
     Box(modifier = modifier) {
         Box(
             modifier = Modifier
@@ -36,9 +45,8 @@ fun NoteItem(title: String, content: String, modifier: Modifier) {
                     .align(Alignment.TopStart)
                     .padding(horizontal = 8.dp)
             )
-
             Text(
-                text = content,
+                text = formatContent,
                 fontSize = 12.sp,
                 color = Black,
                 modifier = Modifier

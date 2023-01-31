@@ -1,34 +1,26 @@
 package com.example.mynotes.presentation.screens.details
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.unit.dp
-import com.example.mynotes.presentation.ui.theme.MyNotesTheme
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.mynotes.domain.model.Note
 import com.example.mynotes.presentation.navigation.Screens
-import com.example.mynotes.presentation.screens.add.AddViewModel
-import com.example.mynotes.presentation.ui.theme.backgroundColor
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -37,7 +29,9 @@ fun DetailsScreen(
     navController: NavController,
     id: String?
 ) {
-    val viewModel = hiltViewModel<AddViewModel>()
+    val viewModel = hiltViewModel<DetailsViewModel>()
+    val note = viewModel.note.observeAsState().value
+    id?.toLong()?.let { viewModel.getNoteByID(id = it) }
     Scaffold(
         topBar = {
             Row(
@@ -68,14 +62,9 @@ fun DetailsScreen(
                         .width(48.dp)
                         .height(48.dp)
                         .clickable {
-//                            viewModel.addNote(
-//                                Note(
-//                                    title = title,
-//                                    content = description
-//                                )
-//                            ) {
-//                                navController.navigate(Screens.MainScreen.rout)
-//                            }
+                            viewModel.deleteNote {
+                                navController.navigate(Screens.MainScreen.rout)
+                            }
                         }
                 ) {
                     Icon(
@@ -94,8 +83,17 @@ fun DetailsScreen(
                 .padding(horizontal = 16.dp)
                 .padding(vertical = 16.dp)
         ) {
-            Text(text = "ssadasdasdasd")
-            Text(text = "ssadasdasdasdasdasdasdasdasd")
+            Text(
+                text = note?.title ?: "",
+                fontSize = 35.sp,
+                style = TextStyle(fontWeight = FontWeight.Bold)
+            )
+            Text(
+                text = note?.content ?: "",
+                fontSize = 23.sp,
+                style = TextStyle(fontWeight = FontWeight.Bold)
+            )
+
         }
     }
 }
