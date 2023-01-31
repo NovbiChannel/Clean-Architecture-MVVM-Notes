@@ -1,11 +1,14 @@
 package com.example.mynotes.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.mynotes.presentation.screens.MainScreen
+import androidx.navigation.navArgument
+import com.example.mynotes.presentation.screens.add.AddScreen
+import com.example.mynotes.presentation.screens.details.DetailsScreen
+import com.example.mynotes.presentation.screens.main.MainScreen
 
 sealed class Screens(val rout: String) {
     object MainScreen: Screens(rout = "main_screen")
@@ -20,13 +23,14 @@ fun SetupNavHost(navController: NavHostController) {
         startDestination = Screens.MainScreen.rout
     ) {
         composable(route = Screens.MainScreen.rout) {
-            MainScreen()
+            MainScreen(navController = navController)
         }
-        composable(route = Screens.DetailScreen.rout) {
-
+        composable(route = Screens.DetailScreen.rout + "/{id}",
+            arguments = listOf(navArgument("id") {type = NavType.StringType})) {
+            DetailsScreen(navController = navController, it.arguments?.getString("id"))
         }
         composable(route = Screens.AddScreen.rout) {
-
+            AddScreen(navController = navController)
         }
     }
 }

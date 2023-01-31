@@ -1,4 +1,4 @@
-package com.example.mynotes.presentation.screens
+package com.example.mynotes.presentation.screens.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
