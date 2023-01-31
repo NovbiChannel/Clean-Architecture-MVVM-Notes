@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -41,7 +40,7 @@ fun DetailsScreen(
                     .fillMaxWidth()
                     .height(56.dp)
                     .shadow(elevation = 15.dp)
-                    .background(Color.White)
+                    .background(MaterialTheme.colors.primary)
             ) {
                 Box(
                     modifier = Modifier
@@ -51,6 +50,7 @@ fun DetailsScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
+                        tint = MaterialTheme.colors.primaryVariant,
                         contentDescription = "nav back",
                         modifier = Modifier
                             .align(Alignment.Center)
@@ -70,6 +70,7 @@ fun DetailsScreen(
                     Icon(
                         imageVector = Icons.Rounded.Delete,
                         contentDescription = "delete note",
+                        tint = MaterialTheme.colors.primaryVariant,
                         modifier = Modifier
                             .align(Alignment.Center)
                     )
@@ -85,13 +86,19 @@ fun DetailsScreen(
         ) {
             Text(
                 text = note?.title ?: "",
-                fontSize = 35.sp,
-                style = TextStyle(fontWeight = FontWeight.Bold)
+                fontSize = 24.sp,
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colors.primaryVariant
+                )
             )
             Text(
                 text = note?.content ?: "",
-                fontSize = 23.sp,
-                style = TextStyle(fontWeight = FontWeight.Bold)
+                fontSize = 16.sp,
+                style = TextStyle(
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colors.primaryVariant
+                )
             )
 
         }

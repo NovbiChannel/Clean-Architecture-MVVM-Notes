@@ -2,22 +2,23 @@ package com.example.mynotes.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
+    primary = componentColorDark,
+    primaryVariant = textColorDark,
     secondary = buttonColor,
-    background = backgroundColor
+    background = backgroundColorDark
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
+    primary = componentColorLight,
+    primaryVariant = textColorLight,
     secondary = buttonColor,
-    background = backgroundColor
+    background = backgroundColorLight
 
     /* Other default colors to override
     background = Color.White,
